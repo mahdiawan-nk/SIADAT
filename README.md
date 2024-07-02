@@ -4,6 +4,13 @@
 SIADAT adalah sistem terintegrasi yang menyediakan informasi lengkap mengenai adat istiadat dan budaya masyarakat Kampar. Dengan fitur pencarian dan penyimpanan data yang canggih, SIADAT menjadi sumber informasi yang handal.
 </b></p>
 
+![Front End](public/static-file/website.png)
+
+
+## Back End
+
+![Back End](public/static-file/panel-admin.png)
+
 ## Instalasi
 - download zip <a href="https://github.com/rahmathidayat9/laraschool/archive/master.zip">disini</a> 
 - atau clone : git clone https://github.com/mahdiawan-nk/SIADAT.git
