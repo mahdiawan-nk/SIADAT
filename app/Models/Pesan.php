@@ -26,7 +26,7 @@ class Pesan extends Model
 
     public static function getInbox($jenisPesan)
     {
-        $dataPesan = self::with(['userSender:id,nama_lengkap,email', 'userReceive:id,nama_lengkap,email'])->whereNull('percakapan_id');
+        $dataPesan = self::with(['userSender:id,username,email', 'userReceive:id,nama_lengkap,email'])->whereNull('percakapan_id');
         if($jenisPesan == 'inbox'){
             $dataPesan->where('is_trash', 0)->where('id_user_recieve', Auth::id());
             $listPesan = $dataPesan->latest('id')->paginate(10);
