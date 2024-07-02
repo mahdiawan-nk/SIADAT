@@ -18,8 +18,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ asset('admin') }}/compiled/svg/logo.svg" alt="Logo"
-                            srcset=""></a>
+                    <a href="{{ route('panel-admin.home') }}">SIADAT</a>
                 </div>
             </div>
         </div>
