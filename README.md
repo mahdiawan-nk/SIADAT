@@ -23,9 +23,9 @@ Lalu ketik command dibawah ini
 - php artisan serve
 
 ## Login
-link panel admin tambahkan /panel-admin pada url contoh http://127.0.0.1/panel-admin
-Email : admin
-Password : 1234567
+- link panel admin tambahkan /panel-admin pada url contoh http://127.0.0.1/panel-admin
+- Email : admin
+- Password : 1234567
 
 ## Fitur
 # Front / Depan
