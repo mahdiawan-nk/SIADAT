@@ -25,7 +25,7 @@ class UserController extends Controller
         $dataTable->addIndexColumn()
             ->addColumn('action', function ($row) {
                 if ($row->role == 2) {
-                    return '<button class="btn btn-sm btn-secondary me-1 edit">Edit</button><button class="btn btn-sm btn-danger hapus">Hapus</button>';
+                    return '<button class="btn btn-sm btn-secondary me-1 reset">Reset Password</button><button class="btn btn-sm btn-secondary me-1 edit">Edit</button><button class="btn btn-sm btn-danger hapus">Hapus</button>';
                 }
             })
             ->rawColumns(['action']);
@@ -38,9 +38,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function resetPassword(Request $request, User $user)
     {
-        //
+        $user->password = Hash::make(12345678);
+        $user->save();
+        return response()->json([
+            'status' => 'OK',
+            'message' => 'Reset Password Berhasil, Password Menjadi Default 12345678',
+            'data' => $request->all()
+        ], 200);
     }
 
     /**
@@ -57,9 +63,6 @@ class UserController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'id_kenegerian' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|string|min:8|same:password',
-
         ], [
             'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
             'username.required' => 'Username wajib diisi.',
@@ -68,15 +71,10 @@ class UserController extends Controller
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
             'id_kenegerian.required' => 'ID Kenegerian wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 8 karakter.',
-            'password_confirmation.required' => 'Password wajib diisi.',
-            'password_confirmation.min' => 'Password minimal 8 karakter.',
-            'password_confirmation.same' => 'Konfirmasi password tidak sesuai dengan password.',
         ]);
 
         // Hash password sebelum menyimpan ke database
-        $password = Hash::make($request->password);
+        $password = Hash::make(12345678);
 
         // Buat user baru
         $user = User::create([
@@ -89,7 +87,7 @@ class UserController extends Controller
         ]);
         return response()->json([
             'status' => 'OK',
-            'message' => 'Login Ok',
+            'message' => 'User Berhasil Di daftarkan, password default 12345678',
             'data' => $request->all()
         ], 200);
     }

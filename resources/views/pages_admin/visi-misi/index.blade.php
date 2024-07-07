@@ -81,6 +81,7 @@
 
                 },
                 error: function(xhr, status, error) {
+                    handleErrorResponse(xhr.status, xhr.responseJSON)
                     console.error(xhr.responseText);
                 }
             });

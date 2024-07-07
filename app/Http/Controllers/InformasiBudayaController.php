@@ -42,7 +42,7 @@ class InformasiBudayaController extends Controller
             'nama' => 'nullable|string|max:255',
             'jenis_peninggalan' => 'nullable|string|max:255',
             'lokasi' => 'nullable|string',
-            'ringkasan' => 'required|string',
+            'ringkasan' => 'required',
             'foto' => 'required|string',
         ]);
 
@@ -65,9 +65,14 @@ class InformasiBudayaController extends Controller
      * @param  \App\Models\InformasiBudaya  $informasiBudaya
      * @return \Illuminate\Http\Response
      */
-    public function show(InformasiBudaya $informasiBudaya)
+    public function show(InformasiBudaya $informasi_budaya)
     {
-        //
+        $response = [
+            'status' => "Berhasil",
+            'data' => $informasi_budaya,
+        ];
+
+        return response()->json($response);
     }
 
     /**

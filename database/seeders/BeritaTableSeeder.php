@@ -16,7 +16,7 @@ class BeritaTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             Berita::create([
                 'judul'=>$faker->sentence(5),
                 'slug'=>$i.'-berita-' . time() . '-' . date('d-m-y'),

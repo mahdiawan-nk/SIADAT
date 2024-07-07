@@ -38,7 +38,7 @@ class AdatIstiadatController extends Controller
         // Validasi data
         $validatedData = $request->validate([
             'nama_adat' => 'required|string|max:255',
-            'ringkasan' => 'nullable|string|max:255',
+            'ringkasan' => 'nullable',
             'foto' => 'required|string|max:255',
             'lokasi' => 'required|string',
             'id_kenegerian' => 'required|integer',
@@ -63,9 +63,15 @@ class AdatIstiadatController extends Controller
      * @param  \App\Models\AdatIstiadat  $adatIstiadat
      * @return \Illuminate\Http\Response
      */
-    public function show(AdatIstiadat $adatIstiadat)
+    public function show(AdatIstiadat $adat_istiadat)
     {
-        //
+        $response = [
+            'status' => "Berhasil",
+            'data' => $adat_istiadat,
+            'message'=>'Data Has Created'
+        ];
+
+        return response()->json($response);
     }
 
     /**

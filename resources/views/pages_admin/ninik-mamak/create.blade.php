@@ -37,9 +37,16 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="first-name-vertical">Kenegerian</label>
-                            <select name="id_kenegerian" id="id_kenegerian" class="form-select form-control" required>
-                                <option value="" selected>Pilih Kenegerian</option>
-                            </select>
+                            @if (auth()->user()->role == 1)
+                                <select name="id_kenegerian" id="id_kenegerian" class="form-select form-control"
+                                    required>
+                                    <option value="" selected>Pilih Kenegerian</option>
+                                </select>
+                            @else
+                                <input type="text" class="form-control" id="kenegerian" readonly>
+                                <input type="hidden" name="id_kenegerian" class="form-control" id="id_kenegerian">
+                            @endif
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -53,7 +60,7 @@
                                 <input type="text" name="file[]" class="form-control upload-file" id="file-0"
                                     placeholder="Upload Files" aria-label="Upload Files" aria-describedby="basic-addon2"
                                     required style="cursor: pointer">
-                                    
+
                                 <button type="button" class="btn btn-primary add-file-btn"><i
                                         class="fa fa-plus"></i></button>
                             </div>

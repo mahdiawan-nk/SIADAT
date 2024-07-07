@@ -16,7 +16,7 @@ class FrontEndSiteController extends Controller
     public function index()
     {
         $this->data = [
-            'berita' => Berita::with('user:id,nama_lengkap')->limit(6)->latest('id')->get()
+            'berita' => Berita::with('user:id,nama_lengkap')->where('status',1)->limit(6)->latest('id')->get()
         ];
         return view('pages_site.index', $this->data);
     }
@@ -43,7 +43,7 @@ class FrontEndSiteController extends Controller
     {
         $this->data = [
             'title' => 'Datouk Ninik Mamak',
-            'data' => NinikMamaks::with('kenegerian:id,nama_kenegerian')->get()
+            'data' => NinikMamaks::with('kenegerian:id,nama_kenegerian')->where('status',1)->get()
         ];
         return view('pages_site.datouk', $this->data);
     }
@@ -62,7 +62,7 @@ class FrontEndSiteController extends Controller
         if ($pages == 'adat-istiadat') {
             $this->data = [
                 'title' => 'Adat Istiadat',
-                'data' => AdatIstiadat::with('kenegerian:id,nama_kenegerian')->paginate(6)
+                'data' => AdatIstiadat::with('kenegerian:id,nama_kenegerian')->where('status',1)->paginate(6)
             ];
             $viewsPages = 'adat_istiadat';
         } else {
@@ -80,7 +80,7 @@ class FrontEndSiteController extends Controller
     {
         $this->data = [
             'title' => 'Berita',
-            'data' => Berita::with('user:id,nama_lengkap')->latest('id')->paginate(12)
+            'data' => Berita::with('user:id,nama_lengkap')->where('status',1)->latest('id')->paginate(12)
         ];
         return view('pages_site.berita', $this->data);
     }
@@ -90,7 +90,7 @@ class FrontEndSiteController extends Controller
         $this->data = [
             'title' => 'Baca Berita',
             'data' => Berita::with('user:id,nama_lengkap')->where('slug', $slug)->first(),
-            'recent_post' => Berita::limit(6)->latest('id')->get()
+            'recent_post' => Berita::limit(6)->where('status',1)->latest('id')->get()
 
         ];
         return view('pages_site.berita_detail', $this->data);

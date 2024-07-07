@@ -18,7 +18,11 @@ class CreatePesansTable extends Migration
             $table->unsignedInteger('percakapan_id');
             $table->unsignedInteger('id_user_sender');
             $table->unsignedInteger('id_user_recieve');
-            $table->text('isi_pesan');
+            $table->string('subject');
+            $table->text('body');
+            $table->integer('is_read')->default(0);
+            $table->integer('is_trash')->default(0);
+            $table->integer('is_stars')->default(0);
             $table->string('attachment')->nullable();
             $table->timestamps();
             

@@ -12,9 +12,15 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="id_kenegerian">Kenegerian</label>
-                            <select name="id_kenegerian" id="id_kenegerian" class="form-select form-control" required>
-                                <option value="" selected>Pilih Kenegerian</option>
-                            </select>
+                            @if (auth()->user()->role == 1)
+                                <select name="id_kenegerian" id="id_kenegerian" class="form-select form-control"
+                                    required>
+                                    <option value="" selected>Pilih Kenegerian</option>
+                                </select>
+                            @else
+                                <input type="text" class="form-control" id="kenegerian" readonly>
+                                <input type="hidden" name="id_kenegerian" class="form-control" id="id_kenegerian">
+                            @endif
                         </div>
                     </div>
                     <div class="col-12">
@@ -26,7 +32,7 @@
                     </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <label >Ringkasan</label>
+                            <label>Ringkasan</label>
                             <textarea name="ringkasan" id="ringkasan" class="form-control editor"></textarea>
                         </div>
                     </div>

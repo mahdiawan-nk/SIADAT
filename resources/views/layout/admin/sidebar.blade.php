@@ -61,10 +61,12 @@
                             <a href="{{ route('panel-admin.informasi.ninik-mamak') }}" class="submenu-link">Datouk
                                 ninik Mamak</a>
                         </li>
-                        <li class="submenu-item  {{ $urlSiteNext == 'kenegerian' ? 'active' : '' }}">
-                            <a href="{{ route('panel-admin.informasi.kenegerian') }}"
-                                class="submenu-link">Kenegerian</a>
-                        </li>
+                        @if (in_array(auth()->user()->role, [1]))
+                            <li class="submenu-item  {{ $urlSiteNext == 'kenegerian' ? 'active' : '' }}">
+                                <a href="{{ route('panel-admin.informasi.kenegerian') }}"
+                                    class="submenu-link">Kenegerian</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
                 <li class="sidebar-item has-sub {{ $urlSite == 'adat-kebudayaan' ? 'active' : '' }}">
@@ -91,28 +93,28 @@
 
                     </ul>
                 </li>
-                @if (in_array(auth()->user()->role,[1]))
-                <li class="sidebar-item {{ $urlSite == 'kontak' ? 'active' : '' }}">
-                    <a href="{{ route('panel-admin.kontak') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Kontak</span>
-                    </a>
-                </li>
+                @if (in_array(auth()->user()->role, [1]))
+                    <li class="sidebar-item {{ $urlSite == 'kontak' ? 'active' : '' }}">
+                        <a href="{{ route('panel-admin.kontak') }}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Kontak</span>
+                        </a>
+                    </li>
                 @endif
-                
+
                 <li class="sidebar-item">
                     <a href="{{ route('panel-admin.pesan') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Pesan</span>
                     </a>
                 </li>
-                @if (in_array(auth()->user()->role,[1]))
-                <li class="sidebar-item {{ $urlSite == 'akun' ? 'active' : '' }}">
-                    <a href="{{ route('panel-admin.akun') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Manajemen Akun</span>
-                    </a>
-                </li>
+                @if (in_array(auth()->user()->role, [1]))
+                    <li class="sidebar-item {{ $urlSite == 'akun' ? 'active' : '' }}">
+                        <a href="{{ route('panel-admin.akun') }}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Manajemen Akun</span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>

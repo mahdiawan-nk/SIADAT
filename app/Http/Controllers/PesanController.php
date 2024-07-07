@@ -15,7 +15,7 @@ class PesanController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $pesanData = Pesan::getInbox($request->input('jenis_pesan'));
         $response = [
             'status' => "Berhasil",
@@ -51,18 +51,33 @@ class PesanController extends Controller
      */
     public function store(Request $request)
     {
-        $dataInsert = new Pesan();
-        $dataInsert->percakapan_id =$request->percakapan_id;
-        $dataInsert->id_user_sender = Auth::id();
-        $dataInsert->id_user_recieve =$request->id_user_recieve;
-        $dataInsert->subject = $request->subject;
-        $dataInsert->body = $request->body;
-        $dataInsert->attachment = $request->attachment;
-        $dataInsert->save();
+        if (is_array($request->id_user_recieve)) {
+            foreach ($request->id_user_recieve as $item) {
+                $dataInsert = new Pesan();
+                $dataInsert->percakapan_id = $request->percakapan_id;
+                $dataInsert->id_user_sender = Auth::id();
+                $dataInsert->id_user_recieve = $item;
+                $dataInsert->subject = $request->subject;
+                $dataInsert->body = $request->body;
+                $dataInsert->attachment = $request->attachment;
+                $dataInsert->save();
+            }
+        } else {
+            $dataInsert = new Pesan();
+            $dataInsert->percakapan_id = $request->percakapan_id;
+            $dataInsert->id_user_sender = Auth::id();
+            $dataInsert->id_user_recieve = $request->id_user_recieve;
+            $dataInsert->subject = $request->subject;
+            $dataInsert->body = $request->body;
+            $dataInsert->attachment = $request->attachment;
+            $dataInsert->save();
+        }
+
+
         $response = [
             'status' => "Berhasil",
             'message' => 'PesaN Berhasil Dikirim',
-            'data'=>$dataInsert
+            'data' => $request->all()
         ];
 
         return response()->json($response);
@@ -76,19 +91,19 @@ class PesanController extends Controller
      */
     public function show($pesan)
     {
-        $pesanData = Pesan::with(['userSender:id,nama_lengkap,email', 'userReceive:id,nama_lengkap,email'])->where('id',$pesan)->first();
-        $pesanData->file = $pesanData->attachment ? asset($pesanData->attachment) :'';
-        $percakapanPesan = Pesan::where('percakapan_id',$pesan)->get();
+        $pesanData = Pesan::with(['userSender:id,nama_lengkap,email', 'userReceive:id,nama_lengkap,email'])->where('id', $pesan)->first();
+        $pesanData->file = $pesanData->attachment ? asset($pesanData->attachment) : '';
+        $percakapanPesan = Pesan::where('percakapan_id', $pesan)->get();
         foreach ($percakapanPesan as $item) {
-            $item->file = $item->attachment ? asset($item->attachment) :'';
-            $item->name_file=$item->attachment ? basename($item->attachment):'';
+            $item->file = $item->attachment ? asset($item->attachment) : '';
+            $item->name_file = $item->attachment ? basename($item->attachment) : '';
         }
         $response = [
             'status' => "Berhasil",
             'message' => 'PesaN Berhasil Dikirim',
-            'data'=>[
-                'dataPesan'=>$pesanData,
-                'percakapan'=>$percakapanPesan
+            'data' => [
+                'dataPesan' => $pesanData,
+                'percakapan' => $percakapanPesan
             ]
         ];
 
@@ -114,19 +129,19 @@ class PesanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pesan $pesan)
-    {   
-        if($request->is_stars_click){
-            $pesan->is_stars = $pesan->is_stars == 1 ? 0:1;
+    {
+        if ($request->is_stars_click == 'true') {
+            $pesan->is_stars = $pesan->is_stars == 1 ? 0 : 1;
             $pesan->save();
         }
-        if($request->is_read_click){
+        if ($request->is_read_click == 'true') {
             $pesan->is_read = 1;
             $pesan->save();
         }
         $response = [
             'status' => "Berhasil",
             'message' => 'Update Berhasil',
-            'data'=>$request->all()
+            'data' => $request->all()
         ];
 
         return response()->json($response);
@@ -145,13 +160,13 @@ class PesanController extends Controller
 
     public function deleteBatch(Request $request)
     {
-        Pesan::whereIn('id',$request->data)->update([
-            'is_trash'=>1
+        Pesan::whereIn('id', $request->data)->update([
+            'is_trash' => 1
         ]);
         $response = [
             'status' => "Berhasil",
             'message' => 'Delete Berhasil',
-            'data'=>$request->all()
+            'data' => $request->all()
         ];
 
         return response()->json($response);

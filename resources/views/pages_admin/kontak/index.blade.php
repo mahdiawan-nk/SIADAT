@@ -27,8 +27,7 @@
                                         <label for="telephone">Telephone</label>
                                     </div>
                                     <div class="col-md-9 form-group">
-                                        <input type="number" id="telephone" class="form-control" name="telephone"
-                                            placeholder="No telepone/Handphone" required>
+                                        <textarea name="telephone" id="" cols="30" rows="4" class="form-control"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="contact-info-horizontal">Alamat</label>
@@ -75,10 +74,10 @@
                         $('[name="telephone"]').val(response.data.telephone)
                         $('[name="alamat"]').val(response.data.alamat)
                         $('[name="catatan"]').val(response.data.catatan)
-                    }else{
+                    } else {
                         btnSubmit.text('Submit')
                     }
-                    
+
 
                 }
             });
@@ -103,6 +102,7 @@
                     loadKontak()
                 },
                 error: function(xhr, status, error) {
+                    handleErrorResponse(xhr.status, xhr.responseJSON)
                     console.error(xhr.responseText);
                 }
             });

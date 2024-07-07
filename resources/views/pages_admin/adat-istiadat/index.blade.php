@@ -160,19 +160,28 @@
                             </button>`
             }
             var dataKenegerian = () => {
+                let url =
+                    '{{ auth()->user()->id_kenegerian ? route('api.kenegerian.show', ['kenegerian' => auth()->user()->id_kenegerian]) : route('api.kenegerian.index') }}'
+
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('api.kenegerian.index') }}",
+                    url: url,
                     dataType: "JSON",
                     success: function(response) {
-                        let list = ''
-                        list += '<option value="">Pilih Kenegerian</option>'
-                        response.data.forEach(item => {
-                            list +=
-                                `<option value="${item.id}">${item.nama_kenegerian}</option>`
-                        });
+                        if (response.data.length > 1) {
+                            let list = ''
+                            list += '<option value="">Pilih Kenegerian</option>'
+                            response.data.forEach(item => {
+                                list +=
+                                    `<option value="${item.id}">${item.nama_kenegerian}</option>`
+                            });
 
-                        $('[name="id_kenegerian"]').html(list)
+                            $('[name="id_kenegerian"]').html(list)
+                        } else {
+                            $('#kenegerian').val(response.data.nama_kenegerian)
+                            $('[name="id_kenegerian"]').val(response.data.id)
+                        }
+
                     }
                 });
             }
@@ -200,7 +209,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -263,6 +272,10 @@
                         });
                         table.ajax.reload()
                         idData = null
+                    },
+                    error: function(xhr, status, error) {
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             }
@@ -309,6 +322,7 @@
                         dataKenegerian()
                         setTimeout(() => {
                             $('[name="id_kenegerian"]').val(data.kenegerian.id)
+                            $('#e-kenegerian').val(data.kenegerian.nama_kenegerian)
                             $('[name="nama_adat"]').val(data.nama_adat)
                             $('[name="lokasi"]').val(data.lokasi)
                             $('[name="foto"]').val(data.foto)
@@ -358,7 +372,7 @@
                     if (result.isConfirmed) {
                         deleteData(data.id)
                     }
-                    
+
                 });
             });
 
@@ -379,7 +393,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -407,7 +421,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });

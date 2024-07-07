@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-body p-0">
                     <div class="list-group" id="list-notes">
-                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -160,11 +160,12 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status, xhr.responseJSON)
-                        console.error(xhr.responseJSON);
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             }
+
             function getStatusLabel(status) {
                 let objStatus = [];
                 switch (status.status) {
@@ -199,19 +200,28 @@
                             </button>`
             }
             var dataKenegerian = () => {
+                let url =
+                    '{{ auth()->user()->id_kenegerian ? route('api.kenegerian.show', ['kenegerian' => auth()->user()->id_kenegerian]) : route('api.kenegerian.index') }}'
+
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('api.kenegerian.index') }}",
+                    url: url,
                     dataType: "JSON",
                     success: function(response) {
-                        let list = ''
-                        list += '<option value="">Pilih Kenegerian</option>'
-                        response.data.forEach(item => {
-                            list +=
-                                `<option value="${item.id}">${item.nama_kenegerian}</option>`
-                        });
+                        if (response.data.length > 1) {
+                            let list = ''
+                            list += '<option value="">Pilih Kenegerian</option>'
+                            response.data.forEach(item => {
+                                list +=
+                                    `<option value="${item.id}">${item.nama_kenegerian}</option>`
+                            });
 
-                        $('[name="id_kenegerian"]').html(list)
+                            $('[name="id_kenegerian"]').html(list)
+                        }else{
+                            $('#kenegerian').val(response.data.nama_kenegerian)
+                            $('[name="id_kenegerian"]').val(response.data.id)
+                        }
+
                     }
                 });
             }
@@ -240,7 +250,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -309,6 +319,7 @@
                 dataKenegerian()
                 setTimeout(() => {
                     $('[name="id_kenegerian"]').val(data.kenegerian.id)
+                    $('#e-kenegerian').val(data.kenegerian.nama_kenegerian)
                     $('[name="nama"]').val(data.nama)
                     $('[name="gelar"]').val(data.gelar)
                     $('[name="suku"]').val(data.suku)
@@ -327,7 +338,7 @@
 
                     });
                     $('#berkas-container').html(inputGroup);
-                }, 1000);
+                }, 1500);
 
                 $('#update-modal').modal('show')
 
@@ -345,7 +356,7 @@
                     denyButtonText: `Tolak`
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        updatePersetujuan(data.id, 1,'Pengajuan Di Setujui')
+                        updatePersetujuan(data.id, 1, 'Pengajuan Di Setujui')
                     } else if (result.isDenied) {
                         Swal.fire({
                             allowOutsideClick: false,
@@ -376,7 +387,7 @@
             });
             table.on('click', '.show-notes', function() {
                 let data = table.row($(this).parents('tr')).data()
-                let listNotes =''
+                let listNotes = ''
                 data.catatans.forEach(item => {
                     listNotes += `<li href="#" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
@@ -427,7 +438,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -458,7 +469,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status)
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });

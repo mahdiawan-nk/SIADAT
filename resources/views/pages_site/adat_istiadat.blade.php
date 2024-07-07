@@ -17,7 +17,7 @@
                     <div class="position-relative portfolio-box">
                         <img class="img-fluid w-100" src="{{ asset($item->foto) }}" alt="">
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
-                            data-sejarah="{!! preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $item->ringkasan) !!}" data-title="{{ $item->nama_adat }}">
+                            data-sejarah="" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_adat }}</p>
                             <span class="text-body"><i
                                     class="fa fa-map-marker-alt text-primary me-2"></i>{{ $item->lokasi }}</span>
@@ -55,11 +55,21 @@
         $(function() {
             $('.show-keterangan').on('click', function(event) {
                 event.preventDefault();
-                let dataTitle = $(this).data('title')
-                let dataValue = $(this).data('sejarah')
-                $('#title-modal').text(`Informasi ${dataTitle}`)
-                $('#text-value-show').html(dataValue)
-                $('#show-ringkasan').modal('show')
+                let dataId = $(this).data('id')
+                const url = '{{ route('api.adat-istiadat.show', ['adat_istiadat' => ':idData']) }}'.replace(
+                    ':idData',
+                    dataId);
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "JSON",
+                    success: function(response) {
+                        $('#title-modal').text(`Informasi ${response.data.nama_adat}`)
+                        $('#text-value-show').html(response.data.ringkasan)
+                        $('#show-ringkasan').modal('show')
+                    }
+                });
+
             });
         });
     </script>

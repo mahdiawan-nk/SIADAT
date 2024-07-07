@@ -42,34 +42,7 @@
 @section('script')
     <script src="{{ asset('admin') }}/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script>
-        // var choices = new Choices('#id_kenegerian', {
-        //     shouldSort: false,
-        //     placeholder: true,
-        //     placeholderValue: 'Select an option',
-        // });
         $(function() {
-
-            var listKenegerian = () => {
-                $.ajax({
-                    type: "GET",
-                    url: '{{ route('api.kenegerian.index') }}',
-                    dataType: "JSON",
-                    success: function(response) {
-                        let list = ''
-                        list +=`<option value="">Pilih Kenegerian</option>`
-                        response.data.map(function(item) {
-                            list += `<option value="${item.id}">${item.nama_kenegerian}</option>`
-                        });
-                        $('[name="id_kenegerian"]').html(list)
-
-                        // Set the choices with the fetched data
-                        // choices.setChoices(items, 'value', 'label', true);
-                    }
-                });
-            }
-
-
-
             var table = $('#table-data').DataTable({
                 processing: true,
                 serverSide: true,
@@ -105,6 +78,52 @@
                     },
                 ]
             });
+            var listKenegerian = () => {
+                $.ajax({
+                    type: "GET",
+                    url: '{{ route('api.kenegerian.index') }}',
+                    dataType: "JSON",
+                    success: function(response) {
+                        let list = ''
+                        list += `<option value="">Pilih Kenegerian</option>`
+                        response.data.map(function(item) {
+                            list +=
+                                `<option value="${item.id}">${item.nama_kenegerian}</option>`
+                        });
+                        $('[name="id_kenegerian"]').html(list)
+
+                        // Set the choices with the fetched data
+                        // choices.setChoices(items, 'value', 'label', true);
+                    }
+                });
+            }
+
+            var resetPassword = (id) => {
+                const url = '{{ route('api.user.reset.password', ['user' => ':idData']) }}'.replace(
+                    ':idData',
+                    id);
+                $.ajax({
+                    type: "PUT",
+                    url: url,
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Reset Password",
+                            text: response.message,
+                        });
+                        table.ajax.reload()
+                    },
+                    error: function(xhr, status, error) {
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+
             var deleteData = (id) => {
                 const url = '{{ route('api.users.destroy', ['user' => ':idData']) }}'.replace(
                     ':idData',
@@ -150,6 +169,25 @@
                 }, 1000);
 
                 $('#update-modal').modal('show')
+
+            });
+
+            table.on('click', '.reset', function() {
+                let data = table.row($(this).parents('tr')).data()
+                idData = data.id
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Password Akan Direset Ke Default 12345678 ",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Reset Password!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        resetPassword(data.id)
+                    }
+                });
 
             });
 
@@ -227,7 +265,8 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseJSON);
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             });

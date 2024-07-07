@@ -98,7 +98,7 @@
                 selectors: ["#main-content"]
             },
             ajax: {
-                trackMethods: ["GET", "POST", "PUT", "DELETE"]
+                trackMethods: ["POST", "PUT", "DELETE"]
             }
         };
     </script>
@@ -154,6 +154,7 @@
             
 
             Swal.fire({
+                target:'.modal',
                 icon: "error",
                 title: "Oops..." + message.status,
                 text: message.message,

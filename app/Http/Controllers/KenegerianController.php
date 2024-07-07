@@ -68,7 +68,11 @@ class KenegerianController extends Controller
      */
     public function show(Kenegerian $kenegerian)
     {
-        //
+        $response = [
+            'status' => "Berhasil",
+            'data' => $kenegerian
+        ];
+        return response()->json($response);
     }
 
     /**

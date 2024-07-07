@@ -30,16 +30,7 @@
                         <option value="">Kenegerian</option>
                     </select>
                 </div>
-                <div class="form-group position-relative">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password"
-                        required>
-                </div>
-                <div class="form-group position-relative  ">
-                    <label for="password_confirmation">Password Confirm</label>
-                    <input type="password" class="form-control" name="password_confirmation"
-                        placeholder="Confirm Password" required>
-                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

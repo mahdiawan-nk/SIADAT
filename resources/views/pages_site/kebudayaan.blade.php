@@ -17,8 +17,7 @@
                     <div class="position-relative portfolio-box">
                         <img class="img-fluid w-100" src="{{ asset($item->foto) }}" alt="">
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
-                            data-sejarah="{!! preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $item->ringkasan) !!}"
-                            data-title="{{ $item->jenis != 'peninggalan' ? $item->nama : $item->jenis_peninggalan }}">
+                            data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">
                                 {{ $item->jenis != 'peninggalan' ? $item->nama : $item->jenis_peninggalan }}</p>
                             <span class="text-body" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}><i
@@ -57,11 +56,22 @@
         $(function() {
             $('.show-keterangan').on('click', function(event) {
                 event.preventDefault();
-                let dataTitle = $(this).data('title')
-                let dataValue = $(this).data('sejarah')
-                $('#title-modal').text(`Informasi ${dataTitle}`)
-                $('#text-value-show').html(dataValue)
-                $('#show-ringkasan').modal('show')
+                let dataId = $(this).data('id')
+                const url = '{{ route('api.informasi-budaya.show', ['informasi_budaya' => ':idData']) }}'.replace(
+                    ':idData',
+                    dataId);
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "JSON",
+                    success: function(response) {
+                        console.log(response.data)
+                        let data = response.data
+                        $('#title-modal').text(`Informasi ${data.jenis == 'peninggalan' ? data.jenis_peninggalan:data.nama}`)
+                        $('#text-value-show').html(response.data.ringkasan)
+                        $('#show-ringkasan').modal('show')
+                    }
+                });
             });
         });
     </script>

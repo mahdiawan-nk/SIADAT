@@ -20,8 +20,7 @@
                                 style="object-fit: cover; width: 100%; height: 100%;">
                         </div>
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
-                            style="min-height:120px;height: auto" data-sejarah="{!! $item->sejarah !!}"
-                            data-title="{{ $item->nama_kenegerian }}">
+                            style="min-height:120px;height: auto" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_kenegerian }}</p>
                             <span class="text-body"><i
                                     class="fa fa-map-marker-alt text-primary me-2"></i>{{ $item->alamat }}</span>
@@ -59,12 +58,22 @@
         $(function() {
             $('.show-keterangan').on('click', function(event) {
                 event.preventDefault();
-                let dataTitle = $(this).data('title')
-                let dataValue = $(this).data('sejarah')
-                console.log(dataValue)
-                $('#title-modal').text(`Informasi Sejarah Kenegerian ${dataTitle}`)
-                $('#text-value-show').text(dataValue)
-                $('#show-ringkasan').modal('show')
+                let dataId = $(this).data('id')
+                const url = '{{ route('api.kenegerian.show', ['kenegerian' => ':idData']) }}'.replace(
+                    ':idData',
+                    dataId);
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "JSON",
+                    success: function(response) {
+                        console.log(response)
+                        $('#title-modal').text(`Informasi Sejarah Kenegerian ${response.data.nama_kenegerian}`)
+                        $('#text-value-show').text(response.data.sejarah)
+                        $('#show-ringkasan').modal('show')
+                    }
+                });
+
             });
         });
     </script>

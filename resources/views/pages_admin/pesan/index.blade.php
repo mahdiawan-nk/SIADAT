@@ -32,6 +32,22 @@
             padding: 10px;
         }
 
+        .email-application .content-area-wrapper .sidebar .compose-new-mail-sidebar {
+            height: calc(100vh - 9rem);
+            width: 50%;
+            border-radius: 0 .267rem .267rem 0;
+            background-color: #fff;
+            position: absolute;
+            -webkit-transform: translateX(130%);
+            -ms-transform: translateX(130%);
+            transform: translate(130%);
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+            z-index: 8;
+            right: 2.15rem;
+            bottom: 1px;
+        }
+
         @media only screen and (max-width: 600px) {
             .email-application .content-area-wrapper .sidebar .compose-new-mail-sidebar {
                 height: calc(100vh - 9rem);
@@ -131,8 +147,8 @@
                                             <div class="col-12">
                                                 <div class="form-group basic-choices">
                                                     <label for="email-id-vertical">Kepada</label>
-                                                    <select class="choices form-select" id="id_user_recieve"
-                                                        name="id_user_recieve">
+                                                    <select class="choices form-select multiple-remove" multiple="multiple"
+                                                        id="id_user_recieve" name="id_user_recieve[]">
 
                                                     </select>
                                                 </div>
@@ -393,6 +409,8 @@
 @section('script')
     <script src="{{ asset('admin') }}/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script>
+        attachOnClickListenerToButton('upload-file')
+
         function AttchselectFiles() {
             Flmngr.open({
                 isMultiple: false,
@@ -421,7 +439,9 @@
                     let dataPercakapan = response.data.percakapan;
                     $('#percakapan-subject').text(dataPesan.subject)
                     let senderPesan = `<div class="chat-body">
-                                            <div class="chat-message w-50">${ dataPesan.body}</div>
+                                            <div class="chat-message w-50">${ dataPesan.body}
+                                                <p class="text-secondary" ${dataPesan.attachment ? "":"hidden"}><a href="${dataPesan.file}" target="new"><i class="bi bi-file-earmark-richtext"></i> ${dataPesan.name_file}</a></p>
+                                                </div>
                                         </div>`
                     let listPercakapan = ''
                     dataPercakapan.forEach(item => {
@@ -453,7 +473,7 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     is_stars_click: false,
-                    is_read_click:true
+                    is_read_click: true
                 },
                 dataType: "JSON",
                 success: function(response) {
@@ -462,6 +482,10 @@
                         title: response.message
                     });
                     showListPesan(currentPage, jenis_pesan)
+                },
+                error: function(xhr, status, error) {
+                    handleErrorResponse(xhr.status, xhr.responseJSON)
+                    console.error(xhr.responseText);
                 }
             });
         }
@@ -501,9 +525,10 @@
         })
 
         var choices = new Choices('#id_user_recieve', {
-            shouldSort: false,
-            placeholder: true,
-            placeholderValue: 'Select an option',
+            delimiter: ",",
+            editItems: true,
+            maxItemCount: -1,
+            removeItemButton: true,
         });
 
         var listPesanData = (data, jenis_pesan) => {
@@ -530,7 +555,7 @@
                                                 <div class="media-body show-details-pesan" style="cursor:pointer" onclick="showEmailDetails(${data.id})">
                                                     <div class="user-details">
                                                         <div class="mail-items">
-                                                            <span class="list-group-item-text text-truncate">${data.user_sender.nama_lengkap} - ${data.user_sender.email}</span>
+                                                            <span class="list-group-item-text text-truncate">${data.user_sender.username} - ${data.user_sender.email}</span>
                                                         </div>
                                                         <div class="mail-meta-item">
                                                             <span class="float-right">
@@ -767,6 +792,10 @@
                         title: response.message
                     });
                     showListPesan(currentPage, jenis_pesan)
+                },
+                error: function(xhr, status, error) {
+                    handleErrorResponse(xhr.status, xhr.responseJSON)
+                    console.error(xhr.responseText);
                 }
             });
         }

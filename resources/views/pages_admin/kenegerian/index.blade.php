@@ -101,8 +101,8 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status, xhr.responseJSON)
-                        console.error(xhr.responseJSON);
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             }
@@ -158,6 +158,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -184,7 +185,8 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr);
+                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             });
