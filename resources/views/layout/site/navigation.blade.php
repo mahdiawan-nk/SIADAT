@@ -55,7 +55,7 @@
                 <a href="{{ route('berita') }}"
                     class="nav-item nav-link {{ $prefix === 'berita' ? 'active' : '' }}">Berita</a>
                 <a href="{{ route('kontak') }}" class="nav-item nav-link {{ $prefix === 'kontak' ? 'active' : '' }}">Kontak</a>
-                <a href="{{ route('panel-admin.login') }}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Login<i class="bi bi-arrow-right ms-2"></i></a>
+                <a href="{{ route('panel-admin.login') }}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Login<i class="bi bi-box-arrow-in-right"></i></a>
             </div>
         </div>
     </nav>
