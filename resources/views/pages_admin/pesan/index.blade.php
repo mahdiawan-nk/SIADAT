@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/extensions/choices.js/public/assets/styles/choices.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/ui-widgets-chatbox.css">
     <style>
-        .card-body {
-            height: calc(100dvh - 50px);
+        .card-body-scroll {
+            height: calc(60dvh - 50px);
             /* Mengurangi tinggi card-footer */
             overflow-y: scroll;
         }
@@ -348,7 +348,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="card-body bg-grey">
+                                                <div class="card-body bg-grey card-body-scroll">
                                                     <div class="chat-content">
                                                         <div class="chat chat-left" id="sender-pesan">
 
