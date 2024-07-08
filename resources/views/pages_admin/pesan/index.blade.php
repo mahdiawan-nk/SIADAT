@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/ui-widgets-chatbox.css">
     <style>
         .card-body {
-            height: calc(60vh - 50px);
+            height: calc(100dvh - 50px);
             /* Mengurangi tinggi card-footer */
             overflow-y: scroll;
         }
@@ -33,7 +33,7 @@
         }
 
         .email-application .content-area-wrapper .sidebar .compose-new-mail-sidebar {
-            height: calc(100vh - 9rem);
+            height: calc(100vh - 0rem);
             width: 50%;
             border-radius: 0 .267rem .267rem 0;
             background-color: #fff;
