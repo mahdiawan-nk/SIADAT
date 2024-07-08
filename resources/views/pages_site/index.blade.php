@@ -98,7 +98,7 @@
                 <div class="position-relative bg-dark-radial h-100 ms-5">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107359.58977162665!2d101.11044086060504!3d0.26814883092341024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d56d02db94ae05%3A0x340d7402572f2633!2sKec.%20Kampar%2C%20Kabupaten%20Kampar%2C%20Riau!5e0!3m2!1sid!2sid!4v1718681370959!5m2!1sid!2sid"
-                        width="676.91" height="615" style="border:0;" allowfullscreen="" loading="lazy"
+                        width="100%" height="615" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
