@@ -275,7 +275,6 @@
                             $('#rejected-outlined').prop('checked', true)
                             $('#catatan').removeAttr('disabled');
                         }
-                        $('#catatan').val(data.catatan)
                         $('#persetujuan-modal').modal('show')
                     } else if (result.isDenied) {
 
