@@ -21,7 +21,7 @@
                             <p class="h4 text-uppercase">
                                 {{ $item->jenis != 'peninggalan' ? $item->nama : $item->jenis_peninggalan }}</p>
                             <span class="text-body" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}><i
-                                    class="fa fa-map-marker-alt text-primary me-2"></i>{{ $item->lokasi }}</span>
+                                    class="fa fa-map-marker-alt text-primary me-2"></i><span class="text-break">{{ $item->lokasi }}</span></span>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>
