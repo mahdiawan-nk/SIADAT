@@ -19,8 +19,8 @@
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
                             data-sejarah="" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_adat }}</p>
-                            <span class="text-body"><i
-                                    class="fa fa-map-marker-alt text-primary me-2"></i>{{ $item->lokasi }}</span>
+                            <span class="text-body text-break"><i
+                                    class="fa fa-map-marker-alt text-primary me-2 "></i>{{ $item->lokasi }}</span>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>
