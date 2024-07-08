@@ -37,20 +37,23 @@
                         <span>Berita</span>
                     </a>
                 </li>
-                <li class="sidebar-item has-sub {{ $urlSite == 'profil' ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Profil</span>
-                    </a>
-                    <ul class="submenu {{ $urlSite == 'profil' ? 'active submenu-open' : '' }}">
-                        <li class="submenu-item {{ $urlSiteNext == 'visi-misi' ? 'active' : '' }}">
-                            <a href="{{ route('panel-admin.profil.visi-misi') }}" class="submenu-link">Visi Misi </a>
-                        </li>
-                        <li class="submenu-item  {{ $urlSiteNext == 'sejarah' ? 'active' : '' }}">
-                            <a href="{{ route('panel-admin.profil.sejarah') }}" class="submenu-link">Sejarah</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (in_array(auth()->user()->role, [1]))
+                    <li class="sidebar-item has-sub {{ $urlSite == 'profil' ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-stack"></i>
+                            <span>Profil</span>
+                        </a>
+                        <ul class="submenu {{ $urlSite == 'profil' ? 'active submenu-open' : '' }}">
+                            <li class="submenu-item {{ $urlSiteNext == 'visi-misi' ? 'active' : '' }}">
+                                <a href="{{ route('panel-admin.profil.visi-misi') }}" class="submenu-link">Visi Misi
+                                </a>
+                            </li>
+                            <li class="submenu-item  {{ $urlSiteNext == 'sejarah' ? 'active' : '' }}">
+                                <a href="{{ route('panel-admin.profil.sejarah') }}" class="submenu-link">Sejarah</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 <li class="sidebar-item has-sub {{ $urlSite == 'informasi' ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
