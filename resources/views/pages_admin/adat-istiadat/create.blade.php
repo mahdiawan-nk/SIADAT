@@ -39,7 +39,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="lokasi">Lokasi</label>
-                            <textarea name="lokasi" id="lokasi" class="form-control" required></textarea>
+                            <textarea name="lokasi" id="lokasi" class="form-control" required maxlength="60"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

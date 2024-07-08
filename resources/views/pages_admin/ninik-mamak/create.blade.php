@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="first-name-vertical">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="form-control" required></textarea>
+                            <textarea name="alamat" id="alamat" class="form-control" required maxlength="60"></textarea>
                         </div>
                     </div>
                     <div class="col-12">
