@@ -42,17 +42,23 @@ class InformasiKontakController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'surel' => 'required|string',
+            'telephone' => 'required|string',
+            'alamat' => 'required|string',
+            'catatan' => 'required|string',
+        ]);
         $isExistData = InformasiKontak::latest()->first();
         if ($isExistData) {
             // If data exists, update it
-            InformasiKontak::updateData($isExistData->id, $request->post());
+            InformasiKontak::updateData($validatedData,$isExistData->id);
             $response = [
                 'status' => "Berhasil",
                 'message' => 'Informasi Kontak Has Updated'
             ];
         } else {
             // If no data exists, create new data
-            InformasiKontak::createData($request->post());
+            InformasiKontak::createData($validatedData);
             $response = [
                 'status' => "Berhasil",
                 'message' => 'Informasi Kontak Has Created'

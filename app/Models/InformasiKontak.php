@@ -21,7 +21,7 @@ class InformasiKontak extends Model
 
     public static function updateData(array $data,$id){
         
-        return self::where('id',$id)->update($data)->save();
+        return self::where('id',$id)->update($data);
     }
 
 }
