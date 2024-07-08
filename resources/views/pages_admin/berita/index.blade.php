@@ -23,7 +23,6 @@
                                             <th>No</th>
                                             <th>Thumbnail</th>
                                             <th>Judul</th>
-                                            <th>Catatan</th>
                                             <th>Status</th>
                                             <th>Created By</th>
                                             <th>Created At</th>
@@ -44,6 +43,36 @@
     @include('pages_admin.berita.create')
     @include('pages_admin.berita.update')
     @include('pages_admin.berita.persetujuan')
+    <div class="modal fade text-left" id="notes-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="myModalLabel130" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title white" id="myModalLabel130">Catatan
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="list-group" id="list-notes">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -75,12 +104,12 @@
                         },
                     },
                     {
-                        data: 'catatan',
-                    },
-                    {
-                        data: 'status',
+                        data: {
+                            status: 'status',
+                            catatans: 'catatans',
+                        },
                         render(h) {
-                            return `${h == 0 ? '<span class="badge bg-info text-dark">Proses</span>' : (h == 1 ? '<span class="badge bg-success text-dark">Setujui - Publish</span>':(h == 2 ? '<span class="badge bg-danger text-dark">Rejected</span>':'<span class="badge bg-danger text-dark">Un-Publish</span>'))} `
+                            return getStatusLabel(h)
                         },
                     },
                     {
@@ -101,6 +130,39 @@
                 ]
             });
 
+            function getStatusLabel(status) {
+                let objStatus = [];
+                switch (status.status) {
+                    case 1:
+                        objStatus = {
+                            classes: 'btn-success',
+                            text: 'Accepted'
+                        }
+                        break;
+                    case 2:
+                        objStatus = {
+                            classes: 'btn-danger',
+                            text: 'Rejected'
+                        }
+                        break;
+                    default:
+                        objStatus = {
+                            classes: 'btn-info',
+                            text: 'Prosses'
+                        }
+                        break;
+                }
+
+                const jumlahNotes = status.catatans ? status.catatans.length : 0
+
+                return `<button type="button" class="btn btn-mini position-relative ${objStatus.classes} show-notes">
+                            ${objStatus.text}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                ${jumlahNotes}
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                            </button>`
+            }
             var unPublisBerita = (id) => {
                 const url = '{{ route('api.berita.update', ['beritum' => ':idData']) }}'.replace(
                     ':idData',
@@ -154,6 +216,25 @@
                     }
                 });
             }
+            table.on('click', '.show-notes', function() {
+                let data = table.row($(this).parents('tr')).data()
+                let listNotes = ''
+                data.catatans.forEach(item => {
+                    listNotes += `<li href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">User : ${item.user}</h5>
+                                <small>${item.last_time}</small>
+                            </div>
+                            <p class="mb-1">
+                            Pesan : ${item.pesan ?? ''}
+                            </p>
+                            <small>Status : ${item.status}</small>
+                        </li>`
+                });
+                $('#list-notes').html(listNotes)
+                $('#notes-modal').modal('show')
+
+            });
 
             attachOnClickListenerToButton('upload-file')
 
@@ -249,6 +330,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -279,7 +361,8 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr);
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             });
@@ -287,7 +370,7 @@
             $('#form-berita-persetujuan').submit(function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
-                const url = '{{ route('api.berita.update', ['beritum' => ':idData']) }}'.replace(
+                const url = '{{ route('api.berita.persetujuan', ['beritum' => ':idData']) }}'.replace(
                     ':idData',
                     idData);
                 $.ajax({
@@ -309,7 +392,8 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr);
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
+                        console.error(xhr.responseText);
                     }
                 });
             });

@@ -122,6 +122,7 @@ Route::prefix('api-resource')->name('api.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::put('users/reset-password/{user}', [UserController::class, 'resetPassword'])->name('user.reset.password');
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
+    Route::put('berita/persetujuan/{beritum}', [BeritaController::class, 'updatePersetujuan'])->name('berita.persetujuan');
     Route::resource('berita', BeritaController::class, ['except' => ['create', 'edit']]);
     Route::resource('profil', ProfilController::class, ['except' => ['create', 'edit']]);
     Route::resource('filemanager', FileManagerController::class, ['except' => ['create', 'edit']]);

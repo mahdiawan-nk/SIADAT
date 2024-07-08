@@ -19,17 +19,27 @@ class BeritaController extends Controller
     public function index()
     {
         $query = Berita::with('user:id,username')->orderBy('id', 'desc');
-        if(auth()->user()->role == 2){
-            $query->where('created_by',Auth::id());
+        if (auth()->user()->role == 2) {
+            $query->where('created_by', Auth::id());
         }
         $data = $query->get();
         $dataTable = DataTables::of($data);
         $dataTable->addIndexColumn()
+            ->addColumn('catatans', function ($row) {
+                $notes = json_decode($row->catatan);
+                if ($row->catatan != null) {
+                    foreach ($notes as $item) {
+                        $item->last_time = Carbon::parse($item->created_at)->diffForHumans();
+                    }
+                }
+
+                return $notes ?? null;
+            })
             ->addColumn('contents', function ($row) {
                 return html_entity_decode($row->isi);
             })
             ->addColumn('thumbnails', function ($row) {
-                return '<img src="' . asset($row->thumbnail). '" class="img-thumbnail w-75"/>';
+                return '<img src="' . asset($row->thumbnail) . '" class="img-thumbnail w-75"/>';
             })
             ->addColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->locale('id')->translatedFormat('d-m-Y H:i');
@@ -40,7 +50,7 @@ class BeritaController extends Controller
             ->addColumn('action', function ($row) {
                 return '<button class="btn btn-sm btn-secondary me-1 edit">Edit</button><button class="btn btn-sm btn-danger hapus">Hapus</button>';
             })
-            ->rawColumns(['contents', 'thumbnails', 'created_at', 'updated_at', 'action']);
+            ->rawColumns(['catatans', 'contents', 'thumbnails', 'created_at', 'updated_at', 'action']);
 
         return $dataTable->make(true);
     }
@@ -110,6 +120,7 @@ class BeritaController extends Controller
      */
     public function update(Request $request, Berita $beritum)
     {
+
         $beritum->fill($request->post())->save();
         $response = [
             'status' => "Berhasil",
@@ -142,6 +153,15 @@ class BeritaController extends Controller
                 'message' => 'Gagal menghapus data kenegerian: ' . $e->getMessage()
             ], 500); // Kode status 500 untuk internal server error
         }
-    } 
+    }
 
+    public function updatePersetujuan(Request $request, Berita $beritum)
+    {
+        $beritum->updatePersetujuan($request->status, $request->catatan);
+
+        return response()->json([
+            'status' => 'berhasil',
+            'message' => $beritum
+        ], 200);
+    }
 }
