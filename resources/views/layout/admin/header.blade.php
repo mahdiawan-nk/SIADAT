@@ -1,3 +1,4 @@
+
 <header>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
@@ -69,8 +70,9 @@
                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-menu d-flex">
                             <div class="user-name text-end me-3">
-                                <h6 class="mb-0 text-gray-600">{{ auth()->user()->username }}</h6>
-                                <p class="mb-0 text-sm text-gray-600">{{ auth()->user()->role == 1 ? 'Administrator':'Operator Kenegerian' }}</p>
+                                <h6 class="mb-0 text-gray-600">{{ \App\Helpers\getUserInfos()->nama_lengkap }}</h6>
+                                <p class="mb-0 text-sm text-gray-600">
+                                    {{ auth()->user()->role == 1 ? 'Administrator' : 'Operator Kenegerian' }}</p>
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
@@ -82,9 +84,13 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
                         <li>
-                            <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
+                            <h6 class="dropdown-header">Hello, {{ \App\Helpers\getUserInfos()->nama_lengkap }}!</h6>
                         </li>
-                        <li><a class="dropdown-item log-out" href="#" id="log-out"><i class="icon-mid bi bi-box-arrow-left me-2"></i>
+                        <li><a class="dropdown-item log-out" href="#" data-bs-toggle="modal"
+                                data-bs-target="#user-profile"><i class="icon-mid bi bi-key-fill me-2"></i>
+                                Ubah Password</a></li>
+                        <li><a class="dropdown-item log-out" href="#" id="log-out"><i
+                                    class="icon-mid bi bi-box-arrow-left me-2"></i>
                                 Logout</a></li>
                     </ul>
                 </div>
@@ -92,3 +98,125 @@
         </div>
     </nav>
 </header>
+
+<div class="modal fade" id="user-profile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form class="modal-content form-horizontal" id="form-update-passwords" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">My Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="nama_lengkap">Nama Lengkap</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="text" id="nama_lengkap" class="form-control" name="nama_lengkap"
+                                placeholder="{{ auth()->user()->nama_lengkap }}"
+                                value="{{ auth()->user()->nama_lengkap }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="text" id="username" class="form-control" name="username"
+                                placeholder="{{ auth()->user()->username }}" value="{{ auth()->user()->username }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="email">E-mail</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <input type="text" id="email" class="form-control" name="email"
+                                placeholder="First Name" value="{{ auth()->user()->email }}">
+                        </div>
+                        <div class="col-12 col-md-8 offset-md-4 form-group">
+                            <div class="form-check">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="checkbox1" class="form-check-input">
+                                    <label for="checkbox1">Update Password</label>
+                                </div>
+                            </div>
+                            <div class="input-group form-password" hidden>
+                                <input type="passwords" class="form-control" placeholder="password"
+                                    aria-label="password">
+                                <span class="input-group-text pt-0 pb-0" id="password" style="cursor: pointer"><i
+                                        class="fa-regular fa-eye"></i></span>
+                            </div>
+                            <div id="passwordError" class="invalid-feedback" style="display: none;">
+                                Password must be at least 8 characters long and include letters, numbers, and
+                                special characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="subtmit" class="btn btn-primary btn-submit">Perbarui</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkbox = document.getElementById('checkbox1');
+        const btnSubmit = document.querySelector('.btn-submit');
+        const formPassword = document.querySelector('.form-password');
+        const showPassword = document.querySelector('#password');
+        const passwordField = formPassword.querySelector('input');
+        const showPasswordIcon = formPassword.querySelector('.fa-eye');
+        const hidePasswordIcon = formPassword.querySelector('.fa-eye-slash');
+        const passwordError = document.getElementById('passwordError');
+        passwordField.value = '';
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                btnSubmit.setAttribute('disabled', true);
+                formPassword.removeAttribute('hidden');
+            } else {
+                btnSubmit.removeAttribute('disabled');
+                passwordField.value = '';
+                passwordError.style.display = 'none';
+                formPassword.setAttribute('hidden', true);
+            }
+        });
+
+        showPassword.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                showPasswordIcon.classList.add('fa-eye-slash');
+                showPasswordIcon.classList.remove('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                showPasswordIcon.classList.add('fa-eye');
+                showPasswordIcon.classList.remove('fa-eye-slash');
+            }
+        });
+
+        passwordField.addEventListener('input', function() {
+            const password = passwordField.value;
+            if (password.trim() === '') {
+                // Jika password kosong atau hanya terdiri dari spasi
+                passwordError.style.display = 'none';
+            } else if (isValidPassword(password)) {
+                // Jika password valid
+                btnSubmit.removeAttribute('disabled');
+                passwordError.style.display = 'none';
+            } else {
+                // Jika password tidak valid
+                passwordError.style.display = 'block';
+            }
+        });
+
+        function isValidPassword(password) {
+            // Password must be at least 8 characters and include letters, numbers, and special characters
+            const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return regex.test(password);
+        }
+
+    });
+</script>

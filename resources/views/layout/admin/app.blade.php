@@ -151,10 +151,10 @@
                     errorMessage = 'Unexpected Error (' + errorCode + ')';
             }
 
-            
+
 
             Swal.fire({
-                target:'.modal',
+                target: '.modal',
                 icon: "error",
                 title: "Oops..." + message.status,
                 text: message.message,
@@ -210,7 +210,7 @@
                 onFinish: (files) => {
                     console.log(target)
                     let dataFile = ParseUrlToPath(files)
-                    
+
                     $('[name="' + target + '"]').val(dataFile)
                 }
             });
@@ -243,9 +243,50 @@
                 }
             });
         });
+        var myModal = new bootstrap.Modal(document.getElementById('user-profile'))
+        $(function() {
+            $('form#form-update-passwords').submit(function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                const idUsers = '{{ auth()->user()->id }}'
+                const url = '{{ route('api.users.update', ['user' => ':idData']) }}'.replace(
+                    ':idData',
+                    idUsers);
+                $.ajax({
+                    type: "PUT",
+                    url: url,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        password: $('[name="passwords"]').val(),
+                        username: $('[name="username"]').val(),
+                        email: $('[name="email"]').val(),
+                        nama_lengkap: $('[name="nama_lengkap"]').val(),
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message
+                        });
+                        $('#user-profile').modal('hide')
+                        $('form#form-update-passwords')[0].reset()
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 3000);
+                    },
+                    error: function(xhr, status, error) {
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
     </script>
     @yield('script')
 
+    <script>
+        // var myModal = document.getElementById('user-profile')
+    </script>
 </body>
 
 </html>

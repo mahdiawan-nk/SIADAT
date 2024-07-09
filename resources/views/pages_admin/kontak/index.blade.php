@@ -33,7 +33,7 @@
                                         <label for="contact-info-horizontal">Alamat</label>
                                     </div>
                                     <div class="col-md-9 form-group">
-                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control" required></textarea>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control" required maxlength="60"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="contact-info-horizontal">Catatan</label>

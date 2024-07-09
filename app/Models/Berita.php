@@ -26,6 +26,7 @@ class Berita extends Model
             'user'=>auth()->user()->username,
             'status' => $status == 1 ? 'Setujui' : 'Tolak',
             'pesan' => $message,
+            'action'=>'Persetujuan Berita',
             'created_at' => now(),
         ];
 
@@ -38,6 +39,26 @@ class Berita extends Model
         // Simpan kembali dalam format JSON
         $this->catatan = json_encode($currentCatatan);
 
+        return $this->save();
+    }
+
+    public function setCatatan($action)
+    {
+        $catatanPenolakan = [
+            'user'=>auth()->user()->username,
+            'status' => $this->status === 0 ? 'Prosess' : ($this->status == 1 ? 'Setujui/publish' : 'Tolak'),
+            'pesan' => $action == 'create' ? 'User ' . auth()->user()->username . ' Membuat Berita Baru' : 'User ' . auth()->user()->username . ' Melakukan Perubahan',
+            'action'=>'Persetujuan Berita',
+            'created_at' => now(),
+        ];
+        // Ambil data catatan saat ini
+        $currentCatatan = $this->catatan ? json_decode($this->catatan, true) : [];
+
+        // Tambahkan catatan baru
+        $currentCatatan[] = $catatanPenolakan;
+
+        // Simpan kembali dalam format JSON
+        $this->catatan = json_encode($currentCatatan);
         return $this->save();
     }
 }

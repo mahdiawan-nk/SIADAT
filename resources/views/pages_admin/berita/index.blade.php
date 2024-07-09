@@ -245,13 +245,6 @@
                 $('#add-modal').modal('show')
             });
 
-            $('input[name="status"]').on('click', function() {
-                if ($(this).val() == '2') {
-                    $('#catatan').removeAttr('disabled');
-                } else if ($(this).val() == '1') {
-                    $('#catatan').attr('disabled', 'disabled');
-                }
-            });
 
             table.on('click', '.edit', function() {
                 // initTiny()
@@ -273,7 +266,6 @@
                             $('#accept-outlined').prop('checked', true)
                         } else if (data.status == 2) {
                             $('#rejected-outlined').prop('checked', true)
-                            $('#catatan').removeAttr('disabled');
                         }
                         $('#persetujuan-modal').modal('show')
                     } else if (result.isDenied) {

@@ -74,14 +74,15 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
 
-        Berita::create([
+        $berita = Berita::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'slug' => 'berita-' . time() . '-' . date('d-m-y'),
             'thumbnail' => $request->thumbnail,
-            'status' => 0,
+            'status' => auth()->user()->role == 2 ? 0 : 1,
             'created_by' => auth()->id()
         ]);
+        $berita->setCatatan('create');
         $response = [
             'status' => "Berhasil",
             'data' => $request->all()
@@ -122,6 +123,7 @@ class BeritaController extends Controller
     {
 
         $beritum->fill($request->post())->save();
+        $beritum->setCatatan('update');
         $response = [
             'status' => "Berhasil",
             'data' => $beritum

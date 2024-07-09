@@ -5,10 +5,11 @@ namespace App\Helpers;
 use Carbon\Carbon;
 use App\Models\Kenegerian;
 use App\Models\Pesan;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
 function DateTimes($date, $format = 'l, d F Y H:i:s')
 {
-
     return Carbon::parse($date)->format($format);
 }
 
@@ -28,4 +29,9 @@ function widgetRecentMessage(){
     $listPesan = $dataPesan->latest('id')->limit(5)->get();
 
     return $listPesan;
+}
+
+function getUserInfos(){
+    $dataUser = User::where('id', Auth::id())->first();
+    return $dataUser;
 }

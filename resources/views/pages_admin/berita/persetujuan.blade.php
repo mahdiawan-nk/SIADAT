@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="judul">Catatan</label>
-                    <textarea name="catatan" id="catatan" class="form-control" rows="10" disabled></textarea>
+                    <textarea name="catatan" id="catatan" class="form-control" rows="10" required></textarea>
                 </div>
             </div>
             <div class="modal-footer">

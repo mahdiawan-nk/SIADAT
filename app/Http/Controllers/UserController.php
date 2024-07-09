@@ -123,7 +123,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->fill($request->post())->save();
+        $userUpdateForm = [
+            'nama_lengkap' => $request->post('nama_lengkap'),
+            'username' => $request->post('username'),
+            'email' => $request->post('email'),
+            'id_kenegerian' => auth()->user()->role == 1 ? $request->post('id_kenegerian') : auth()->user()->id_kenegerian,
+        ];
+        if($request->passwords){
+            $userUpdateForm['password'] = Hash::make($request->passwords);
+        }
+        $user->fill($userUpdateForm)->save();
         $response = [
             'status' => "Berhasil",
             'message' => 'Berhasil Update',
