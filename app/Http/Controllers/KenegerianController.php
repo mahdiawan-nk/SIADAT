@@ -24,7 +24,7 @@ class KenegerianController extends Controller
                 return $row->sejarah;
             })
             ->addColumn('thumbnail', function ($row) {
-                return '<img src="' . asset($row->foto) . '" class="img-thumbnail w-50"/>';
+                return '<img src="' . asset($row->foto) . '" class="img-thumbnail"/>';
             })
             ->addColumn('action', function ($row) {
                 return '<button class="btn btn-sm btn-secondary me-1 edit">Edit</button><button class="btn btn-sm btn-danger hapus">Hapus</button>';

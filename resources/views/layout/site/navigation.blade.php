@@ -9,7 +9,7 @@
     <nav class="navbar navbar-expand-lg bg-dark bg-light-radial navbar-dark py-3 py-lg-0">
         <a href="index.html" class="navbar-brand">
             <h1 class="m-0 display-4 text-uppercase text-white"><img src="{{ asset('static-file/logo-kampar.png') }}"
-                    style="width: 3vw" alt="">KAMPAR</h1>
+                    style="width: 2.5vw" alt="" class="me-2">LAK</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>

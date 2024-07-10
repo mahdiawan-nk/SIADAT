@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mazer Admin Dashboard</title>
+    <title>Login - LAK</title>
 
 
 
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/app.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/app-dark.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/auth.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css" />
 </head>
 
 <body>
@@ -51,11 +51,6 @@
                                 <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-1">Log
                                     in</button>
                             </form>
-                            <div class="text-center mt-5 text-lg fs-4">
-                                <p class="text-gray-600">Don't have an account? <a
-                                        href="{{ route('register') }}" class="font-bold text-primary">Sign
-                                        up</a>.</p>
-                            </div>
                         </div>
                     </div>
                 </di>
@@ -70,7 +65,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
         $('form#auth-user').submit(function(e) {
@@ -89,8 +84,8 @@
                         html: "sedang Redirect ke halaman panel-admin dalam <b></b> milliseconds.",
                         timer: 2500,
                         timerProgressBar: true,
-                        allowOutsideClick:false,
-                        allowEscapeKey:false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
                         didOpen: () => {
                             Swal.showLoading();
                             const timer = Swal.getPopup().querySelector("b");
@@ -111,7 +106,11 @@
 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseJSON.message)
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal Login",
+                        text: jqXHR.responseJSON.message,
+                    });
                 }
             });
 

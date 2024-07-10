@@ -11,7 +11,7 @@
         <div class="row g-5">
             @foreach ($data as $item)
                 <div class="col-lg-4 col-md-6">
-                    <div class="bg-light">
+                    <div class="bg-light shadow-lg rounded">
                         <div class="image-container" style="width: 100%; height: 450px;">
                             <img class="img-fluid mx-auto" src="{{ asset($item->thumbnail) }}" alt=""
                                 style="object-fit: cover; width: 100%; height: 100%;">

@@ -14,7 +14,7 @@
         <div class="row g-5 portfolio-container">
             @foreach ($data as $item)
                 <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                    <div class="position-relative portfolio-box">
+                    <div class="position-relative portfolio-box shadow">
                         <img class="img-fluid w-100" src="{{ asset($item->foto) }}" alt="">
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
                             data-id="{{ $item->id }}">

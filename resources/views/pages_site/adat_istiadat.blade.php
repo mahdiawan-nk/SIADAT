@@ -14,13 +14,12 @@
         <div class="row g-5 portfolio-container">
             @foreach ($data as $item)
                 <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                    <div class="position-relative portfolio-box">
+                    <div class="position-relative portfolio-box shadow">
                         <img class="img-fluid w-100" src="{{ asset($item->foto) }}" alt="">
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
                             data-sejarah="" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_adat }}</p>
-                            <span class="text-body"><i
-                                    class="fa fa-map-marker-alt text-primary me-2 "></i><span class="text-break">{{ $item->lokasi }}</span></span>
+                            <span class="text-body d-flex flex-row justify-content-start"><i class="fa fa-map-marker-alt text-primary me-2 "></i><span class="text-break">{{ $item->lokasi }}</span></span>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>

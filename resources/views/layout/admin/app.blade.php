@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin</title>
-    <link rel="shortcut icon" href="{{ asset('admin') }}/compiled/svg/favicon.svg" type="image/x-icon">
+    <title>Panel Admin - LAK</title>
+    <link rel="shortcut icon" href="{{ asset('static-file/logo-kampar.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/app.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/compiled/css/app-dark.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/r-3.0.2/rg-1.5.0/datatables.min.css" rel="stylesheet">

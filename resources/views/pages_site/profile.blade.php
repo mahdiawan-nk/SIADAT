@@ -12,7 +12,10 @@
     <div class="container py-6 px-5" style="min-height:80vh">
         <div class="row g-5">
             <div class="col-lg-12">
-                {!! preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $data ? $data->content : '') !!}
+                <div class="card shadow rounded rounded-1">
+                    <div class="card-body">{!! preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $data ? $data->content : '') !!}</div>
+                </div>
+                
                 {{-- {{ $data ? $data->content : '' }} --}}
             </div>
         </div>

@@ -8,22 +8,18 @@
                 <div class="carousel-item active">
                     <img class="w-100" src="{{ asset('static-file/sample-1.jpg') }}" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('static-file/sample-1.jpg') }}" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h1 class="ml1 display-2 text-uppercase text-white">
+                                <span class="text-wrapper">
+                                    <span class="letters">SELAMAT DATANG DI WEBSITE LEMBAGA ADAT
+                                        KAMPAR</span>
+                                </span>
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+
         </div>
     </div>
     <!-- Carousel End -->
@@ -37,7 +33,7 @@
         <div class="row g-5">
             @foreach ($berita as $item)
                 <div class="col-lg-4 col-md-6">
-                    <div class="bg-light">
+                    <div class="bg-light shadow rounded">
                         <div class="image-container" style="width: 100%; height: 450px;">
                             <img class="img-fluid mx-auto" src="{{ asset($item->thumbnail) }}" alt=""
                                 style="object-fit: cover; width: 100%; height: 100%;">
@@ -105,4 +101,38 @@
         </div>
     </div>
     <!-- About End -->
+@endsection
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>
+        var textWrapper = document.querySelector('.ml1 .letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({
+                loop: true
+            })
+            .add({
+                targets: '.ml1 .letter',
+                scale: [0.3, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 600,
+                delay: (el, i) => 70 * (i + 1)
+            }).add({
+                targets: '.ml1 .line',
+                scaleX: [0, 1],
+                opacity: [0.5, 1],
+                easing: "easeOutExpo",
+                duration: 700,
+                offset: '-=875',
+                delay: (el, i, l) => 80 * (l - i)
+            }).add({
+                targets: '.ml1',
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            });
+    </script>
 @endsection

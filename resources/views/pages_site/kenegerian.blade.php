@@ -14,7 +14,7 @@
         <div class="row g-5 portfolio-container">
             @foreach ($data as $item)
                 <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                    <div class="position-relative portfolio-box">
+                    <div class="position-relative portfolio-box shadow">
                         <div class="image-container" style="width: 100%; height: 450px;">
                             <img class="img-fluid mx-auto" src="{{ asset($item->foto) }}" alt=""
                                 style="object-fit: cover; width: 100%; height: 100%;">

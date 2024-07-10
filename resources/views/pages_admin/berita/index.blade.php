@@ -377,6 +377,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        $('#catatan').val('')
                         $('#persetujuan-modal').modal('hide')
                         table.ajax.reload()
                         forThis = null

@@ -1,5 +1,10 @@
 @extends('layout.admin.app')
 @section('style')
+<style>
+    tbody tr td {
+        font-size: 12px;
+    }
+</style>
 @endsection
 @section('pages_admin')
     <div class="page-heading">
@@ -63,7 +68,7 @@
                     {
                         data: 'contents',
                         render(h) {
-                            return `<p class="text-wrap" style="width:10rem">${h}</p>`
+                            return `<p class="text-wrap" style="width:10rem">${batasiPanjangKalimat(h,30)}</p>`
                         },
                     },
                     {
@@ -101,7 +106,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -158,7 +163,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -185,11 +190,19 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
             });
         });
+
+        function batasiPanjangKalimat(kalimat, batasKarakter) {
+            if (kalimat.length > batasKarakter) {
+                return kalimat.substring(0, batasKarakter) + '...';
+            } else {
+                return kalimat;
+            }
+        }
     </script>
 @endsection

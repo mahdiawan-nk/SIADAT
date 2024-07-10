@@ -1,4 +1,3 @@
-
 <header>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
@@ -148,8 +147,7 @@
                                         class="fa-regular fa-eye"></i></span>
                             </div>
                             <div id="passwordError" class="invalid-feedback" style="display: none;">
-                                Password must be at least 8 characters long and include letters, numbers, and
-                                special characters.
+                                Password must be at least 8 characters long.
                             </div>
                         </div>
                     </div>
@@ -214,7 +212,7 @@
 
         function isValidPassword(password) {
             // Password must be at least 8 characters and include letters, numbers, and special characters
-            const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            const regex = /^.{8,}$/;
             return regex.test(password);
         }
 

@@ -14,10 +14,10 @@
     <div class="container-fluid py-6 px-5" style="min-height:80vh">
         <div class="row g-5">
             <div class="col-lg-12  ">
-                <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card shadow p-3 mb-5 bg-body rounded rounded-1">
                     <div class="card-body">
                         <table class="table" id="table-data">
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
@@ -51,6 +51,8 @@
 @section('script')
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.8/r-3.0.2/rg-1.5.0/datatables.min.js"></script>
     <script>
-        $('#table-data').DataTable()
+        $('#table-data').DataTable({
+            ordering: false
+        })
     </script>
 @endsection
