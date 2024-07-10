@@ -23,7 +23,7 @@
                             style="min-height:120px;height: auto" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_kenegerian }}</p>
                             <span class="text-body"><i
-                                    class="fa fa-map-marker-alt text-primary me-2"></i>{{ $item->alamat }}</span>
+                                    class="fa fa-map-marker-alt text-primary me-2"></i><span class="text-break">{{ $item->alamat }}</span></span>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>
@@ -69,7 +69,7 @@
                     success: function(response) {
                         console.log(response)
                         $('#title-modal').text(`Informasi Sejarah Kenegerian ${response.data.nama_kenegerian}`)
-                        $('#text-value-show').text(response.data.sejarah)
+                        $('#text-value-show').html(response.data.sejarah)
                         $('#show-ringkasan').modal('show')
                     }
                 });
