@@ -276,7 +276,7 @@
             });
             $(document).on('click', '.upload-file', function() {
                 Flmngr.selectFiles({
-                    acceptExtensions: ["pdf"],
+                    acceptExtensions: ["pdf,'png', 'jpeg', 'jpg", "webp", "gif","docx","doc"],
                     isMultiple: true,
                     onFinish: (files) => {
                         if (files.length > 1) {
