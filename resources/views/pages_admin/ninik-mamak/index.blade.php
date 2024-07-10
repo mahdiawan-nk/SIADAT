@@ -279,22 +279,22 @@
                     acceptExtensions: ["pdf,'png', 'jpeg', 'jpg", "webp", "gif","docx","doc"],
                     isMultiple: true,
                     onFinish: (files) => {
-                        if (files.length > 1) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "File Yang anda upload lebih dari satu",
-                            });
-                            return;
-                        }
-                        if (files[0].type != 'application/pdf') {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "Jenis File Tidak Di izinakn, Gunakan file PDF",
-                            });
-                            return;
-                        }
+                        // if (files.length > 1) {
+                        //     Swal.fire({
+                        //         icon: "error",
+                        //         title: "Oops...",
+                        //         text: "File Yang anda upload lebih dari satu",
+                        //     });
+                        //     return;
+                        // }
+                        // if (files[0].type != 'application/pdf') {
+                        //     Swal.fire({
+                        //         icon: "error",
+                        //         title: "Oops...",
+                        //         text: "Jenis File Tidak Di izinakn, Gunakan file PDF",
+                        //     });
+                        //     return;
+                        // }
                         Flmngr.upload({
                             filesOrLinks: files,
                             dirUploads: "/",
