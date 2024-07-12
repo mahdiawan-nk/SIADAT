@@ -694,12 +694,12 @@
 
             Swal.fire({
                 title: "Anda yakin?",
-                text: "Data akan divalidasi!",
+                text: "Pesan Akan Di Hapus",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Validasi!"
+                confirmButtonText: "Hapus!"
             }).then(result => {
                 if (result.value) {
                     $.ajax({
