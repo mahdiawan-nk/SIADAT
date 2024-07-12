@@ -129,7 +129,7 @@
                 attachOnClickListenerToButton();
             }
         })
-        const handleErrorResponse = (errorCode, message) => {
+        const handleErrorResponse = (errorCode, message, target=false) => {
             var errorMessage = '';
             switch (errorCode) {
                 case 400:
@@ -154,7 +154,7 @@
 
 
             Swal.fire({
-                target: '.modal',
+                target: target ? '.modal' : 'body',
                 icon: "error",
                 title: "Oops..." + message.status,
                 text: message.message,
@@ -206,7 +206,7 @@
         function selectFiles(target) {
             Flmngr.open({
                 isMultiple: false,
-                acceptExtensions: ["png", "jpeg", "jpg", "webp", "gif", "pdf"],
+                acceptExtensions: ["png", "jpeg", "jpg", "webp", "gif"],
                 onFinish: (files) => {
                     console.log(target)
                     let dataFile = ParseUrlToPath(files)

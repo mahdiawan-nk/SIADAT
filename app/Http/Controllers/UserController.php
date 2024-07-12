@@ -156,13 +156,13 @@ class UserController extends Controller
             // Berhasil menghapus, kembalikan respons JSON
             return response()->json([
                 'status' => 'Berhasil',
-                'message' => 'Data adat istiadat berhasil dihapus.'
+                'message' => 'Data  berhasil dihapus.'
             ]);
         } catch (\Exception $e) {
             // Tangkap pengecualian jika terjadi kesalahan saat menghapus
             return response()->json([
                 'status' => 'Gagal',
-                'message' => 'Gagal menghapus data kenegerian: ' . $e->getMessage()
+                'message' => 'Gagal menghapus data ' . $e->getMessage()
             ], 500); // Kode status 500 untuk internal server error
         }
     }

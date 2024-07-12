@@ -1,10 +1,10 @@
 @extends('layout.admin.app')
 @section('style')
-<style>
-    tbody tr td {
-        font-size: 12px;
-    }
-</style>
+    <style>
+        tbody tr td {
+            font-size: 12px;
+        }
+    </style>
 @endsection
 @section('pages_admin')
     <div class="page-heading">
@@ -104,6 +104,11 @@
                     },
                     {
                         data: 'alamat',
+                        render(h) {
+                            return `<div class="text-wrap" style="width: 8rem;">
+                                        ${h}
+                                    </div>`
+                        },
                     },
                     {
                         data: 'suku',
@@ -165,7 +170,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -222,7 +227,7 @@
                             });
 
                             $('[name="id_kenegerian"]').html(list)
-                        }else{
+                        } else {
                             $('#kenegerian').val(response.data.nama_kenegerian)
                             $('[name="id_kenegerian"]').val(response.data.id)
                         }
@@ -255,7 +260,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -281,7 +286,7 @@
             });
             $(document).on('click', '.upload-file', function() {
                 Flmngr.selectFiles({
-                    acceptExtensions: ["pdf,'png', 'jpeg', 'jpg", "webp", "gif","docx","doc"],
+                    acceptExtensions: ["pdf,'png', 'jpeg', 'jpg", "webp", "gif", "docx", "doc"],
                     isMultiple: true,
                     onFinish: (files) => {
                         Flmngr.upload({
@@ -397,12 +402,15 @@
                 let data = table.row($(this).parents('tr')).data()
                 idData = data.id
                 Swal.fire({
+                    allowOutsideClick: false,
                     title: "Are You sure?",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonText: "Delete",
                 }).then((result) => {
-                    deleteData(data.id)
+                    if (result.isConfirmed) {
+                        deleteData(data.id)
+                    }
                 });
             });
 
@@ -427,7 +435,7 @@
                         table.ajax.reload()
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
@@ -458,7 +466,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });

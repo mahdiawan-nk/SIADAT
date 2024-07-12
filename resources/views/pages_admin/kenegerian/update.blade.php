@@ -1,5 +1,5 @@
 <div class="modal fade" id="update-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 999">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <form class="modal-content form-vertical" id="form-update">
             @csrf

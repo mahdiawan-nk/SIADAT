@@ -76,6 +76,11 @@
                     },
                     {
                         data: 'lokasi',
+                        render(h) {
+                            return `<div class="text-wrap" style="width: 8rem;">
+                                        ${h}
+                                    </div>`
+                        },
                     },
                     {
                         data: 'action',
@@ -87,9 +92,10 @@
             table.columns([5]).visible(arrJenisData.includes(jenisData) ? false : true);
 
             var deleteData = (id) => {
-                const url = '{{ route('api.informasi-budaya.destroy', ['informasi_budaya' => ':idData']) }}'.replace(
-                    ':idData',
-                    id);
+                const url = '{{ route('api.informasi-budaya.destroy', ['informasi_budaya' => ':idData']) }}'
+                    .replace(
+                        ':idData',
+                        id);
                 $.ajax({
                     type: "DELETE",
                     url: url,
@@ -106,13 +112,56 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });
             }
 
-            attachOnClickListenerToButton('upload-file')
+            $(document).on('click', '.upload-file', function(e) {
+                let targets = e.target.name
+                Flmngr.selectFiles({
+                    acceptExtensions: ["jpg", "jpeg", "png"],
+                    isMultiple: true,
+                    onFinish: (files) => {
+                        let isValid = true;
+                        files.forEach(file => {
+                            let ext = file.name.split('.').pop().toLowerCase();
+                            if (!["jpg", "jpeg", "png"].includes(ext)) {
+                                isValid = false;
+                                return false; // Exit forEach loop early
+                            }
+                        });
+
+                        if (!isValid) {
+                            $('.modal').css('z-index', '999')
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'File Extension Error',
+                                text: 'Only JPG, JPEG, and PNG files are allowed.',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('.modal').css('z-index', '99999')
+                                }
+                            });
+                            return;
+                        }
+                        Flmngr.upload({
+                            filesOrLinks: files,
+                            dirUploads: "/",
+                            onFinish: (uploadedFiles) => {
+                                $('[name="' + targets + '"]').val(ParseUrlToPath(
+                                    uploadedFiles))
+                            },
+                            onFail: (error) => {
+                                console.log(error)
+                            }
+                        });
+
+                    }
+                });
+            });
 
             $('.add').click(function(e) {
                 e.preventDefault();
@@ -197,7 +246,7 @@
                         idData = null
                     },
                     error: function(xhr, status, error) {
-                        handleErrorResponse(xhr.status,xhr.responseJSON)
+                        handleErrorResponse(xhr.status, xhr.responseJSON)
                         console.error(xhr.responseText);
                     }
                 });

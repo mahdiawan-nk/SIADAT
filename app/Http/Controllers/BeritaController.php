@@ -146,7 +146,7 @@ class BeritaController extends Controller
             // Berhasil menghapus, kembalikan respons JSON
             return response()->json([
                 'status' => 'Berhasil',
-                'message' => 'Data adat istiadat berhasil dihapus.'
+                'message' => 'Data berhasil dihapus.'
             ]);
         } catch (\Exception $e) {
             // Tangkap pengecualian jika terjadi kesalahan saat menghapus

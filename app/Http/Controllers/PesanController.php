@@ -76,7 +76,7 @@ class PesanController extends Controller
 
         $response = [
             'status' => "Berhasil",
-            'message' => 'PesaN Berhasil Dikirim',
+            'message' => 'Pesan Berhasil Dikirim',
             'data' => $request->all()
         ];
 
@@ -100,7 +100,7 @@ class PesanController extends Controller
         }
         $response = [
             'status' => "Berhasil",
-            'message' => 'PesaN Berhasil Dikirim',
+            'message' => 'Pesan Berhasil Dikirim',
             'data' => [
                 'dataPesan' => $pesanData,
                 'percakapan' => $percakapanPesan
