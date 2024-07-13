@@ -41,7 +41,7 @@ class DatoukNinikMamak extends Model
     {
         $catatan = [
             'user'=>auth()->user()->username,
-            'status' => 'Prosess',
+            'status' => auth()->user()->role == 2 ? 'Prosess' : 'Setujui',
             'pesan' => 'User ' . auth()->user()->username . ' Membuat Pengajuan',
             'created_at' => now(),
         ];
@@ -52,7 +52,7 @@ class DatoukNinikMamak extends Model
         $ninikMamak->suku = $data['suku'];
         $ninikMamak->alamat = $data['alamat'];
         $ninikMamak->id_kenegerian = $data['id_kenegerian'];
-        $ninikMamak->status = 0;
+        $ninikMamak->status = auth()->user()->role == 2 ? 0 : 1;
         $ninikMamak->catatan = json_encode($currentCatatan);
         $ninikMamak->id_user = Auth::id();
         $ninikMamak->save();

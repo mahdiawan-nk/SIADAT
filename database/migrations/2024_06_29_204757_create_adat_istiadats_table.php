@@ -17,7 +17,7 @@ class CreateAdatIstiadatsTable extends Migration
             $table->increments('id');
             $table->string('nama_adat');
             $table->unsignedInteger('id_kenegerian');
-            $table->json('catatan');
+            $table->json('catatan')->nullable();
             $table->string('foto');
             $table->string('lokasi');
             $table->integer('status');

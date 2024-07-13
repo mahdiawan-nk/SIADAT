@@ -22,8 +22,11 @@
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
                             style="min-height:120px;height: auto" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_kenegerian }}</p>
-                            <span class="text-body"><i
-                                    class="fa fa-map-marker-alt text-primary me-2"></i><span class="text-break">{{ $item->alamat }}</span></span>
+                            <div class="text-body" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}>
+                                <span class="d-flex flex-row justify-content-start">
+                                    <i class="fa fa-map-marker-alt text-primary me-2 align-self-center"></i><span class="text-break">{{ $item->alamat }}</span>
+                                </span>
+                            </div>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>
@@ -43,7 +46,7 @@
                     <h5 class="modal-title" id="title-modal"> </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="text-value-show">
+                <div class="modal-body text-break" id="text-value-show">
 
                 </div>
                 <div class="modal-footer">

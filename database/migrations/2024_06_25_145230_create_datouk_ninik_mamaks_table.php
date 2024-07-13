@@ -22,7 +22,7 @@ class CreateDatoukNinikMamaksTable extends Migration
             $table->string('suku');
             $table->unsignedInteger('id_user');
             $table->integer('status')->default(0);
-            $table->string('catatan')->nullable();
+            $table->json('catatan')->nullable();
             $table->timestamps();
 
             $table->foreign('id_kenegerian')->references('id')->on('kenegerians')->onDelete('restrict');
