@@ -33,14 +33,16 @@
         </div>
     </div>
     <div class="modal fade" id="show-ringkasan" tabindex="-1" aria-labelledby="title-modal" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="title-modal"> </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="text-value-show">
-
+                <div class="modal-body">
+                    <div class="text-break" id="text-value-show">
+                        
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -64,7 +66,7 @@
                     dataType: "JSON",
                     success: function(response) {
                         $('#title-modal').text(`Informasi ${response.data.nama_adat}`)
-                        $('#text-value-show').html(response.data.ringkasan)
+                        $('#text-value-show').html(`<div class="text-break">${response.data.ringkasan}</div>`)
                         $('#show-ringkasan').modal('show')
                     }
                 });

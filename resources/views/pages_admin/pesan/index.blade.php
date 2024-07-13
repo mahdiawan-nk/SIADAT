@@ -738,7 +738,7 @@
                         icon: "success",
                         title: response.message
                     });
-
+                    $('#email-form-compose').trigger('reset')
                     document.querySelector('.compose-new-mail-sidebar').classList.remove('show')
                     showListPesan(currentPage, jenis_pesan)
                 },

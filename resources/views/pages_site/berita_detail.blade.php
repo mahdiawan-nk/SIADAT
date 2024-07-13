@@ -13,7 +13,9 @@
                 <!-- Blog Detail Start -->
                 <div class="mb-5">
                     <h1 class="text-uppercase mb-4">{{ $data->judul }}</h1>
-                    <p>{!! preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $data->isi) !!}</p>
+                    <div class="text-break">
+                        {!! $data->isi !!}
+                    </div>
                 </div>
                 <!-- Blog Detail End -->
             </div>
