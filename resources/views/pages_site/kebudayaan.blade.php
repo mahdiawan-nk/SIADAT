@@ -20,8 +20,11 @@
                             data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">
                                 {{ $item->jenis != 'peninggalan' ? $item->nama : $item->jenis_peninggalan }}</p>
-                            <span class="text-body d-flex flex-row justify-content-start" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}><i
-                                    class="fa fa-map-marker-alt text-primary me-2 align-self-center"></i><span class="text-break">{{ $item->lokasi }}</span></span>
+                            <div class="text-body" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}>
+                                <span class="d-flex flex-row justify-content-start">
+                                    <i class="fa fa-map-marker-alt text-primary me-2 align-self-center"></i><span class="text-break">{{ $item->lokasi }}</span>
+                                </span>
+                            </div>
                         </a>
                         <a class="portfolio-btn" href="{{ asset($item->foto) }}" data-lightbox="portfolio">
                             <i class="bi bi-plus text-white"></i>

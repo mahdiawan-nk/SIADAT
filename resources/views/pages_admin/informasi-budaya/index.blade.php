@@ -70,6 +70,9 @@
                     },
                     {
                         data: 'contents',
+                        render(h) {
+                            return `<p class="text-wrap" style="width:10rem">${batasiPanjangKalimat(h,30)}</p>`
+                        },
                     },
                     {
                         data: 'thumbnails',
@@ -91,6 +94,13 @@
             table.columns([2]).visible(arrJenisData.includes(jenisData) ? false : true);
             table.columns([5]).visible(arrJenisData.includes(jenisData) ? false : true);
 
+            function batasiPanjangKalimat(kalimat, batasKarakter) {
+                if (kalimat.length > batasKarakter) {
+                    return kalimat.substring(0, batasKarakter) + '...';
+                } else {
+                    return kalimat;
+                }
+            }
             var deleteData = (id) => {
                 const url = '{{ route('api.informasi-budaya.destroy', ['informasi_budaya' => ':idData']) }}'
                     .replace(
