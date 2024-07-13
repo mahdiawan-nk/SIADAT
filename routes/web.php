@@ -63,37 +63,37 @@ Route::prefix('panel-admin')->name('panel-admin.')->group(function () {
     Route::prefix('profil')->name('profil.')->group(function () {
         Route::get('/visi-misi', function () {
             return view('pages_admin.visi-misi.index');
-        })->name('visi-misi');
+        })->name('visi-misi')->middleware('auth.web');
         Route::get('/sejarah', function () {
             return view('pages_admin.sejarah.index');
-        })->name('sejarah');
+        })->name('sejarah')->middleware('auth.web');
     });
 
     Route::prefix('informasi')->name('informasi.')->group(function () {
         Route::get('/ninik-mamak', function () {
             return view('pages_admin.ninik-mamak.index');
-        })->name('ninik-mamak');
+        })->name('ninik-mamak')->middleware('auth.web');
         Route::get('/kenegerian', function () {
             return view('pages_admin.kenegerian.index');
-        })->name('kenegerian');
+        })->name('kenegerian')->middleware('auth.web');
     });
 
     Route::prefix('adat-kebudayaan')->name('adat-kebudayaan.')->group(function () {
         Route::get('/adat-istiadat', function () {
             return view('pages_admin.adat-istiadat.index');
-        })->name('adat-istiadat');
+        })->name('adat-istiadat')->middleware('auth.web');
         Route::get('/seni-tari', function () {
             return view('pages_admin.informasi-budaya.index', ['jenis' => 'seni_tari', 'field' => 'Nama Tari', 'title' => 'Data Seni Tari']);
-        })->name('seni-tari');
+        })->name('seni-tari')->middleware('auth.web');
         Route::get('/seni-musik', function () {
             return view('pages_admin.informasi-budaya.index', ['jenis' => 'seni_musik', 'field' => 'Nama Musik', 'title' => 'Data Seni Musik']);
-        })->name('seni-musik');
+        })->name('seni-musik')->middleware('auth.web');
         Route::get('/kuliner-khas', function () {
             return view('pages_admin.informasi-budaya.index', ['jenis' => 'kuliner_khas', 'field' => 'Nama Kuliner', 'title' => 'Data Kuliner Khas']);
-        })->name('kuliner-khas');
+        })->name('kuliner-khas')->middleware('auth.web');
         Route::get('/peninggalan', function () {
             return view('pages_admin.informasi-budaya.index', ['jenis' => 'peninggalan', 'field' => 'Nama Peninggalan', 'title' => 'Data Peninggalan']);
-        })->name('peninggalan');
+        })->name('peninggalan')->middleware('auth.web');
     });
 
     Route::get('kontak', function () {
