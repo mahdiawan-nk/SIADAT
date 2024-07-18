@@ -264,6 +264,7 @@
                     },
                     dataType: "JSON",
                     success: function(response) {
+                        console.log(response)
                         Toast.fire({
                             icon: "success",
                             title: response.message

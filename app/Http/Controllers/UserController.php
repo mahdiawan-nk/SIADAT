@@ -129,14 +129,17 @@ class UserController extends Controller
             'email' => $request->post('email'),
             'id_kenegerian' => auth()->user()->role == 1 ? $request->post('id_kenegerian') : auth()->user()->id_kenegerian,
         ];
-        if($request->passwords){
-            $userUpdateForm['password'] = Hash::make($request->passwords);
+        if($request->password){
+            $userUpdateForm['password'] = Hash::make($request->password);
         }
         $user->fill($userUpdateForm)->save();
         $response = [
             'status' => "Berhasil",
             'message' => 'Berhasil Update',
-            'data' => $user
+            'data' => [
+                'user' => $user,
+                'password'=> $request->password
+            ]
         ];
         return response()->json($response);
     }

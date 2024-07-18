@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                             <div class="input-group form-password" hidden>
-                                <input type="passwords" class="form-control" placeholder="password"
+                                <input type="passwords" class="form-control" name="passwords" placeholder="password"
                                     aria-label="password">
                                 <span class="input-group-text pt-0 pb-0" id="password" style="cursor: pointer"><i
                                         class="fa-regular fa-eye"></i></span>
