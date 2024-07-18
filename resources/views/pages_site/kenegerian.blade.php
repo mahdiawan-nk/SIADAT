@@ -22,7 +22,7 @@
                         <a class="portfolio-title shadow-sm show-keterangan" href="#shwo-keterangan"
                             style="min-height:120px;height: auto" data-id="{{ $item->id }}">
                             <p class="h4 text-uppercase">{{ $item->nama_kenegerian }}</p>
-                            <div class="text-body" {{ $item->jenis == 'peninggalan' ? '' : 'hidden' }}>
+                            <div class="text-body">
                                 <span class="d-flex flex-row justify-content-start">
                                     <i class="fa fa-map-marker-alt text-primary me-2 align-self-center"></i><span class="text-break">{{ $item->alamat }}</span>
                                 </span>
