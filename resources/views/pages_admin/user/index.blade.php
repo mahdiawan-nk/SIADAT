@@ -200,7 +200,10 @@
                     showCancelButton: true,
                     confirmButtonText: "Delete",
                 }).then((result) => {
-                    deleteData(data.id)
+                    if (result.isConfirmed) {
+                        deleteData(data.id)
+                    }
+
                 });
             });
 
